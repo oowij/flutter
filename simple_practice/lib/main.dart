@@ -140,6 +140,11 @@ class _MyInfoState extends State<MyInfo> {
         //상태를 변경할 때에는 setState를 호출해야 한다.(stateful widget에서만)
         onTap: (index) => setState(() {
           bottomNavIndex = index;
+          void aaa(int index){
+            if(index == 0){
+              return ;
+            }
+          }
         }),
         //바텀네비 버튼들
         items: const [
