@@ -18,11 +18,18 @@ class ListPage extends HookWidget {//HookWidget을 바꿈
       //id,name,email 예시의 json링크를 넣음
       http.get(Uri.parse(url)).then((response){
         if(response.statusCode == 200){//200은 정상응답
-          dynamic decodeBody = jsonDecode(response.body);
-          List jsonList = decodeBody as List;
-          listState.value = jsonList.map((data){
-            return PostDTOTable(id: data["id"], name: data["name"], email: data["email"]);
-          }).toList();
+          //string을 json형식으로 파싱
+          // dynamic decodeBody = jsonDecode(response.body);
+          // //json을 Map List로 캐스팅
+          // List jsonList = decodeBody as List;
+          // // list가 됐긴 때문에 아래에 list map을 할 수 있음
+          // // List를 map 함수로 풀어서 요소를 PostDTOTable로 변경
+          // // state에 입력
+          // listState.value = jsonList.map((data){
+          // //   return PostDTOTable(id: data["id"], name: data["name"], email: data["email"]);
+          // return PostDTOTable.fromjson(data);
+          // }).toList();
+          listState.value = PostDTOTable.fromJsonList(jsonDecode(response.body));
         }
       });
     },[]);

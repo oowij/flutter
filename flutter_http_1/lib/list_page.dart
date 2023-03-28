@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_http_1/post_dto.dart';
+import 'package:flutter_http_1/post_repository.dart';
 import 'package:http/http.dart' as http; //useEffect사용하기전에 import함.
 //as -> 패키지를 http이름으로 사용하겠다는 말
 
@@ -27,28 +28,8 @@ class ListPage extends HookWidget {
     //관찰하는 상태가 변경되면 작동한다
     //관찰하는 상태가 없으면 빌드 시 1번 작동한다
     useEffect((){
-      String url = "https://jsonplaceholder.typicode.com/posts";
-      http.get(Uri.parse(url)).then((response) {
-
-        //추가(
-        //정사적으로 받아왔는지 체크
-        //200은 정상 응답
-        if(response.statusCode == 200) {
-          //string을 json형식으로 파싱
-          dynamic decodedBody = jsonDecode(
-              response.body); //아무거나 받을 때 dynamic으로 함.
-          //json을 Map List로 캐스팅
-          List jsonList = decodedBody as List;
-          //list가 됐긴 때문에 아래에 list map을 할 수 있음
-          //List를 map 함수로 풀어서 요소를 PostDTOTable로 변경
-          //state에 입력
-          listState.value = jsonList.map((data) {
-            return PostDTOTable(
-                userId: data["userId"], id: data["id"], title: data["title"]);
-          }).toList();
-        }
-
-        //jsonState.value = response.body;
+      PostRepository.instance.getDTOList().then((value) {
+        listState.value = value;
       });
     },[]);
 
