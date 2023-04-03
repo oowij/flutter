@@ -27,3 +27,16 @@ class PostDTOTable{
     return jsonList.map((e) => PostDTOTable.fromjson(json)).toList();
   }
 }
+//상세 페이지 용
+class PostDTODetail {
+  int userId;
+  int id;
+  String title;
+  String body;
+
+  PostDTODetail(
+      {required this.userId,
+        required this.id,
+        required this.title,
+        required this.body});
+}

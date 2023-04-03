@@ -1,7 +1,7 @@
 //post_repository.dart
 import 'dart:convert';
 
-import 'package:flutter_http_1/post_dto.dart';
+import 'package:flutter_http_myself/post_dto.dart';
 import 'package:http/http.dart' as http;
 
 class PostRepository{
@@ -22,10 +22,10 @@ class PostRepository{
     String url = "https://jsonplaceholder.typicode.com/posts";
     http.Response response = await http.get(Uri.parse(url));
     //http.get(Uri.parse(url)).then((response) {
-      if(response.statusCode == 200) {
-        return PostDTOTable.fromJsonList(jsonDecode(response.body));
-      }else {
-        return null;
+    if(response.statusCode == 200) {
+      return PostDTOTable.fromJsonList(jsonDecode(response.body));
+    }else {
+      return null;
     }
   }
 }
